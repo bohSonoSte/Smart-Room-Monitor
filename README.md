@@ -78,18 +78,27 @@ C <br>
 <p style="margin-left: 40px;">Software required to program the boards: <br>
  &nbsp; &nbsp; → visual studio code: https://code.visualstudio.com/download <br>
  &nbsp; &nbsp; → code composer studio: https://www.ti.com/tool/download/CCSTUDIO/12.7.0 <br>
- &nbsp; &nbsp; → arduino ide (for ESP-EYE): https://www.arduino.cc/en/software <br>
 </p>
 
 <h3 style="margin-left: 20px;" id="hardware-requirements">Hardware requirements</h3>
-<p style="margin-left: 40px;">Here we show the hardware components needed to built the device. 
-Texas Instruments MSP432P401R microcontroller <br>
-![MSP](Docs/MSP432-Board.jpg) <br>
-Educational BoosterPack MKII <br>
+<p style="margin-left: 40px;">Here we show the hardware components needed to built the device. <br> <br>
+→ Texas Instruments MSP432P401R microcontroller <br>
+<img src=Docs/MSP432-Board.jpg> <br><br>
+The Texas Instruments MSP432P401R is a 32-bit microcontroller designed for embedded applications. It is built around the ARM Cortex-M4F Core, which includes a floating-point unit and digital signal processing capabilities. It supports low-power applications that require increased CPU speed, memory, analog, and 32-bit performance. It features a system clock speed of up to 48 MHz and includes 256 KB of flash memory, 64 KB of SRAM and 32 KB of ROM preloaded with SimpleLink MSP432 SDK libraries. The microcontroller offers a rich set of peripherals: there are four 16-bit timers with capture, compare or PWM modes, two 32-bit timers and a real-time clock (RTC). In particular, we used in our project the RTC to show the exact time and date on the display. This topic will be discussed in the next sections. For communication, it supports up to eight serial channels, including I²C, SPI and UART. Analog features include a precision ADC, capacitive touch sensing, and a comparator, while digital capabilities include hardware-accelerated AES256 encryption, CRC error checking, and a micro DMA (µDMA) controller for efficient data handling.
 
-HC-SR501 PIR Sensor <br>
-![PIR](Docs/pir.png)
-<br> The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power—around 50 microamps when idle. We connected the PIR to pin P6.4.
+
+
+→ BOOSTXL-EDUMKII Educational BoosterPack <br>
+<img src=Docs/boosterpack.webp> <br><br>
+The BOOSTXL-EDUMKII Educational BoosterPack is a plug-in module that offers various analog and digital inputs and outputs. These 
+
+
+
+→ HC-SR501 PIR Sensor <br>
+<img src=Docs/pir.png> <br><br>
+The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power—around 50 microamps when idle. We connected the PIR to pin P6.4.
+
+
 
 </p>
 
