@@ -82,13 +82,14 @@ C <br>
 </p>
 
 <h3 style="margin-left: 20px;" id="hardware-requirements">Hardware requirements</h3>
-<p style="margin-left: 40px;">Hardware components needed to built the device: 
+<p style="margin-left: 40px;">Here we show the hardware components needed to built the device. 
+Texas Instruments MSP432P401R microcontroller <br>
+![MSP](Docs/MSP432-Board.jpg) <br>
+Educational BoosterPack MKII <br>
 
-* Texas Instruments MSP432P401R microcontroller 
-* Educational BoosterPack MKII 
-* ESP-EYE (ESP32)
-* HC-SR501 PIR Sensor <br>
+HC-SR501 PIR Sensor <br>
 ![PIR](Docs/pir.png)
+<br> The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power—around 50 microamps when idle. We connected the PIR to pin P6.4.
 
 </p>
 
