@@ -87,7 +87,7 @@ C <br>
 * Texas Instruments MSP432P401R microcontroller 
 * Educational BoosterPack MKII 
 * ESP-EYE (ESP32)
-* HC-SR501 PIR Sensor
+* HC-SR501 PIR Sensor <br>
 ![PIR](Docs/pir.png)
 
 </p>
