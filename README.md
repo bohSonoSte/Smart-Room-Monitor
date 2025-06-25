@@ -61,6 +61,7 @@
 <!-- PROJECT INTRODUCTION -->
 ## Project introduction
 
+
 <br>
 
 
@@ -70,7 +71,6 @@
 ## Built with
 C <br>  
 
- 
 <br>
 
 
@@ -86,7 +86,8 @@ C <br>
 
 * Texas Instruments MSP432P401R microcontroller 
 * Educational BoosterPack MKII 
-* ESP-EYE (ESP32) 
+* ESP-EYE (ESP32)
+* HC-SR501 PIR Sensor
 
 </p>
 
