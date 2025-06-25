@@ -88,6 +88,7 @@ C <br>
 * Educational BoosterPack MKII 
 * ESP-EYE (ESP32)
 * HC-SR501 PIR Sensor
+![PIR](Docs/pir.png)
 
 </p>
 
