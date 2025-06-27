@@ -111,7 +111,7 @@ The BOOSTXL-EDUMKII Educational BoosterPack is a plug-in module that offers vari
 
 → HC-SR501 PIR Sensor <br>
 <img src=Docs/pir.png width="30%"> <br><br>
-The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power—around 50 microamps when idle. We connected the PIR to pin P6.4.
+The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power—around 50 microamps when idle. We connected the PIR to pin P6.4 using a breadboard and some cables.
 
 
 
@@ -121,6 +121,11 @@ The HC-SR501 PIR is a motion detector module. It senses infrared radiation chang
 
 <!-- SETTING UP THE HARDWARE -->
 ## Setting up the hardware
+
+
+
+
+To connect the PIR sensor to the board, we used male-to-female jumper wires and a breadboard. Following the motion sensor's datasheet, we wired the VCC to the board's 5V pin, GND to the board's ground and the DATA to pin P6.4. 
 
 <br>
 
