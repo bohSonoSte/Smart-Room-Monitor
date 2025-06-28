@@ -187,7 +187,10 @@ COME FAR AVVIARE IL PROGRAMMA
 <!-- USER GUIDE -->
 ## User guide
 
-In our MSP432-powered Smart Room Monitor, you're the master of micro-kingdom. From the main menu, complete with always-on time and date, you can dive into many functions. The "Temperature" mode shows the room temperature. If the room it's too hot or too cold, the board flashes a red LED and emits an insistent buzz. The alarm is also triggered if the accelerometer senses an earthquake. If the emergency is finished, press SELECT to stop the alarm. Next,for an instant lux reading select the "Light" mode. Need to correct for Daylight Saving Time or simply recalibrate an errant clock? No problem, with the mode "Change Time" it's possible to get the clock back in sync. We only need the buttons to increase, decrease and select the time. The real party is under the LED mode: choose dynamic ambient coloring that shifts from cozy yellow at dusk to dazzling white at noon. You can also pick other different colors: blue, gree, red or arctic cold white.  Who ever thought room control could be so easy?
+The user interface is designed to be highly intuitive and user-friendly. 
+Navigate the menu using the two tactile buttons on the right side of the BoosterPack MKII: press the lower button to scroll down, the upper button to scroll up. Press the joystick's SELECT button to confirm the chosen menu function. Once in, if the button SELECT is pressed again you can return to the main menu. In the event that an alarm is triggered, whether due to temperature conditions or a seismic activity, the red LED will illuminate and the buzzer will sound. Once you have addressed the underlying issue, press SELECT one more time to silence the buzzer and extinguish the red LED, restoring the system to normal operation.
+
+
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
