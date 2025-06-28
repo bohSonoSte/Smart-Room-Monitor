@@ -4,7 +4,7 @@
 <br />
 <div align="center">
 
-<h3 align="center">Smart Light System</h3>
+<h3 align="center">Smart Room Monitor</h3>
 
 
 <br>
@@ -59,7 +59,7 @@
 
 
 <!-- PROJECT INTRODUCTION -->
-## Project introduction
+# Project introduction
 Meet the MSP432-powered Smart Room Monitor: your all-in-one environmental sidekick. With a clear always-on time/date display, four easy-to-navigate modes put total control at your fingertips. It keeps track of ambient heat and the intensity of light in the room. It can recalibrate an erroneous clock and select the preferred illumination mode.
 With built-in safety alerts and effortless customization, mastering your room has never been this simple, or this smart.
 
@@ -70,50 +70,59 @@ With built-in safety alerts and effortless customization, mastering your room ha
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- BUILT WITH -->
-## Built with
+# Built with
 C <br>  
 
 <br>
 
 
-<h3 style="margin-left: 20px;" id="software-requirements">Software requirements</h3>
-<p style="margin-left: 40px;">Software required to program the boards: <br>
+# Software requirements
+Software required to program the boards: <br>
 Code Composer Studio (https://www.ti.com/tool/CCSTUDIO) <br>
 - MSP Driver Library (https://www.ti.com/tool/MSPDRIVERLIB) <br>
 - MSP Graphics Library (https://www.ti.com/tool/MSP-GRLIB) <br>
 </p>
 
 
-<h3 style="margin-left: 20px;" id="hardware-requirements">Hardware requirements</h3>
-<p style="margin-left: 40px;">Here we show the hardware components needed to built the device. <br> <br>
-→ Texas Instruments MSP432P401R microcontroller <br>
+# Hardware requirements
+<p style="margin-left: 40px;">Here we show the hardware components needed to built the device. 
+
+## Texas Instruments MSP432P401R microcontroller
 <img src=Docs/MSP432-Board.jpg width="50%"> <br><br>
 The Texas Instruments MSP432P401R is a 32-bit microcontroller designed for embedded applications. It is built around the ARM Cortex-M4F Core and it supports low-power applications that require increased CPU speed, memory, analog, and 32-bit performance. It features a system clock speed of up to 48 MHz and includes 256 KB of flash memory, 64 KB of SRAM and 32 KB of ROM preloaded with SimpleLink MSP432 SDK libraries. The microcontroller offers a rich set of peripherals: there are four 16-bit timers with capture, compare or PWM modes, two 32-bit timers and a real-time clock (RTC). In particular, we used in our project the RTC to show the exact time and date on the display. This topic will be discussed in the next sections. For communication, it supports up to eight serial channels, including I²C, SPI and UART.
 
 
 
-→ BOOSTXL-EDUMKII Educational BoosterPack <br>
+## BOOSTXL-EDUMKII Educational BoosterPack <br>
 <img src=Docs/boosterpack.jpg width="50%"> <br><br>
 The BOOSTXL-EDUMKII Educational BoosterPack is a plug-in module that offers various analog and digital inputs and outputs. The module also includes an analog joystick, environmental and motion sensors, RGB LED, a microphone, buzzer, color LCD display and more. In our project we used: <br>
-&nbsp; &nbsp; - **TI OPT3001 light sensor** = it's a digital ambient light sensor. It measures the intensity of light (visible by the human eye) present in the room. The measurement can go from 0.01 lux to 83k lux. We used the sensor to module the color of the LED.
+### TI OPT3001 light sensor
+It's a digital ambient light sensor. It measures the intensity of light (visible by the human eye) present in the room. The measurement can go from 0.01 lux to 83k lux. We used the sensor to module the color of the LED.
 <br>
-&nbsp; &nbsp; - **TI TMP006 temperature sensor** = It's a digital infrared thermopile contactless temperature sensor that measures the temperature of an object without being in direct contact. It is specified to operate from -40°C to +125°C. We used it to measure the temperature in the room.
+ ### TI TMP006 temperature sensor 
+It's a digital infrared thermopile contactless temperature sensor that measures the temperature of an object without being in direct contact. It is specified to operate from -40°C to +125°C. We used it to measure the temperature in the room.
 <br>
-&nbsp; &nbsp; - **Kionix KXTC9-2050** = It's a 3-axis analog accelerometer that measures g-forces. If the board moves along the axes, the analog signal generated will change. The full-scale output range is of +/-2g (19.6 m/s^2). The sensing is based on the principle of a differential capacitance arising from acceleration-induced motion of the sense element. We used this accelerometer to detect earthquakes and to generate an alarm message.
+### Kionix KXTC9-2050
+It's a 3-axis analog accelerometer that measures g-forces. If the board moves along the axes, the analog signal generated will change. The full-scale output range is of +/-2g (19.6 m/s^2). The sensing is based on the principle of a differential capacitance arising from acceleration-induced motion of the sense element. We used this accelerometer to detect earthquakes and to generate an alarm message.
 <br>
-&nbsp; &nbsp; - **Cree CLV1A-FKB RGB multicolor LED** = It can output an high intensity light of any color by mixing red, green and blue. To achieve a specific color, each color channel can be individually modified by pulse width modulation (PWM). In our project is the main light source of the room.
+### Cree CLV1A-FKB RGB multicolor LED
+It can output an high intensity light of any color by mixing red, green and blue. To achieve a specific color, each color channel can be individually modified by pulse width modulation (PWM). In our project is the main light source of the room.
 <br>
-&nbsp; &nbsp; - **CUI CEM-1203(42) piezo buzzer** = This piezo buzzer can play various frequencies based on the provided PWM signal. We used it as the audible alarm signal.
+### CUI CEM-1203(42) piezo buzzer
+This piezo buzzer can play various frequencies based on the provided PWM signal. We used it as the audible alarm signal.
 <br>
-&nbsp; &nbsp; - **Color 128x128 TFT LCD display** = This small display packs 128x128 full-color pixels into one square inch of active display area. It updates up to 20 frames per second. It has a color depth of 262k colors and a contrast ratio of 350. It displays the main menu.
+### Color 128x128 TFT LCD display
+This small display packs 128x128 full-color pixels into one square inch of active display area. It updates up to 20 frames per second. It has a color depth of 262k colors and a contrast ratio of 350. It displays the main menu.
 <br>
-&nbsp; &nbsp; - **ITEAD studio IM130330001 2-axis joystick with pushbutton** = It's composed of two potentiometers, one for each axis. The select button is present and is actuated when the joystick is pressed down. We used the joystick mainly for the select button, to choose various options in the menu.
+### ITEAD studio IM130330001 2-axis joystick with pushbutton
+It's composed of two potentiometers, one for each axis. The select button is present and is actuated when the joystick is pressed down. We used the joystick mainly for the select button, to choose various options in the menu.
 <br>
-&nbsp; &nbsp; - **User push buttons** = They are connected to pullup resistors that drive the pin low if the buttons are pressed. We are used to scroll the menu or to change the time of the clock. 
+### User push buttons 
+They are connected to pullup resistors that drive the pin low if the buttons are pressed. We are used to scroll the menu or to change the time of the clock. 
 <br>
 
 
-→ HC-SR501 PIR Sensor <br>
+## HC-SR501 PIR Sensor <br>
 <img src=Docs/pir.png width="30%"> <br><br>
 The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power—around 50 microamps when idle. We connected the PIR to pin P6.4 using a breadboard and some cables.
 
@@ -124,7 +133,7 @@ The HC-SR501 PIR is a motion detector module. It senses infrared radiation chang
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- SETTING UP THE HARDWARE -->
-## Setting up the hardware
+# Setting up the hardware
 
 
 <img src=Docs/EMBEDDED.png width="70%"> <br><br>
@@ -137,21 +146,21 @@ To connect the PIR sensor to the board, we used male-to-female jumper wires and 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- PROJECT STRUCTURE -->
-## Project structure
+# Project structure
 The main menu, continuously displaying time and date, provides access to all system functions:
 
-"Temperature"
+### Temperature
 Displays the current ambient temperature. 
 *foto temperatura*
 
-"Light"
+### Light
 Reports the current illuminance in lux, enabling precise monitoring of ambient lighting conditions.
 *foto lux*
 
-"Change Time"
+### Change Time
 Allows manual adjustment of the real-time clock to compensate for drift, Daylight Saving Time shifts, or initial configuration. Dedicated buttons increment and decrement hours, minutes, day, month, and year; pressing SELECT confirms the updated time/date.
 
-"LED"
+### LED
 Controls the onboard RGB LED. In "Auto" mode, the LED color dynamically maps to measured illuminance. For a low lux value, we have a warm yellow, for high lux, a cool white. The user can also select one of several fixed color outputs: blue, green, red, or cold white.
 
 If the temperature exceeds a predefined high or low thresholds (+40°C and 0°C), or if the onboard accelerometer detects significant motion (for example an earthquake), the system activates a visual alert (red LED) and an audible alarm (buzzer). We need to press SELECT to acknowledge and silence the alarm.
@@ -167,7 +176,7 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
 
 
 <!-- PROJECT LAYOUT -->
-## Project Layout
+# Project Layout
 
 ORGANIZZAZIONE PROGRAMMA/CODICE
 
@@ -176,16 +185,36 @@ ORGANIZZAZIONE PROGRAMMA/CODICE
 
 
 <!-- come includere librerie e far andare progetto -->
-## Getting Started
+# Getting Started
 
-COME FAR AVVIARE IL PROGRAMMA
+Place the TI driverlib `source` folder inside the `driverlib` folder like this:
+
+IMMAGINE QUI
+
+> You can download the driverlib folder
+> from [here]()
+
+Open the folder `NOME CARTELLA DEL PROGETTO` in CCS.
+
+<!-- > Note: do NOT open in CCS the whole `embedded_project` folder, since it contains additional files that are not needed for the CCS project. -->
+
+The project includes are already set up to include the driverlib folder, you should be able to build the project without
+any additional setup.
+
+ARM compiler include options: `${PROJECT_ROOT}/../driverlib/source`
+
+ARM linker file search path options: `${PROJECT_ROOT}/../driverlib/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib`
+
+To burn and run the project, use the CCS GUI 
+User's guide available [here](https://softwaredl.ti.com/ccs/esd/documents/users_guide_ccs_20.0.0/index.html)
+
 
 <br>
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- USER GUIDE -->
-## User guide
+# User guide
 
 The user interface is designed to be highly intuitive and user-friendly. 
 Navigate the menu using the two tactile buttons on the right side of the BoosterPack MKII: press the lower button to scroll down, the upper button to scroll up. Press the joystick's SELECT button to confirm the chosen menu function. Once in, if the button SELECT is pressed again you can return to the main menu. In the event that an alarm is triggered, whether due to temperature conditions or a seismic activity, the red LED will illuminate and the buzzer will sound. Once you have addressed the underlying issue, press SELECT one more time to silence the buzzer and extinguish the red LED, restoring the system to normal operation.
@@ -200,7 +229,7 @@ Pir senson pin -->
 
 
 <!-- FUTURE UPGRADES -->
-## Future upgrades
+# Future upgrades
 ESP
 batteria
 tempo attivazione pir non analogico
@@ -210,13 +239,13 @@ tempo attivazione pir non analogico
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- USEFUL LINKS -->
-## Useful links
+# Useful links
 
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 
 <!-- TEAM MEMBERS -->
-## Team members
+# Team members
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
