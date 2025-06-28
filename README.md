@@ -102,7 +102,7 @@ It's a digital ambient light sensor. It measures the intensity of light (visible
  ### TI TMP006 temperature sensor 
 It's a digital infrared thermopile contactless temperature sensor that measures the temperature of an object without being in direct contact. It is specified to operate from -40°C to +125°C. We used it to measure the temperature in the room.
 <br>
-### Kionix KXTC9-2050
+### Kionix KXTC9-2050 accelerometer
 It's a 3-axis analog accelerometer that measures g-forces. If the board moves along the axes, the analog signal generated will change. The full-scale output range is of +/-2g (19.6 m/s^2). The sensing is based on the principle of a differential capacitance arising from acceleration-induced motion of the sense element. We used this accelerometer to detect earthquakes and to generate an alarm message.
 <br>
 ### Cree CLV1A-FKB RGB multicolor LED
