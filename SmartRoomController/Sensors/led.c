@@ -1,19 +1,25 @@
 #include <ti/devices/msp432p4xx/inc/msp.h>
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
+#include "lightsensor.h"
+#include <stdio.h>
+
 #define PWM_PERIOD      1000
 
 typedef enum {
     LED_OFF,
-    LED_WARM_WHITE,
+    LED_DIM,
     LED_COOL_WHITE,
     LED_RED,
     LED_GREEN,
-    LED_BLUE
+    LED_BLUE,
 } LEDColor;
 
 static LEDColor currentColor = LED_OFF;
 static bool ledActive = false;
+float lux;
+
+uint16_t red, green, blue = PWM_PERIOD;
 
 
 void _initPWM(void) {
@@ -52,14 +58,24 @@ void _initPWM(void) {
 
 // Modify setColor function to handle different color modes
 void setColor(LEDColor color) {
-    uint16_t red, green, blue;
+    //uint16_t red, green, blue;
 
     switch(color) {
-        case LED_WARM_WHITE:
-            red = PWM_PERIOD;
-            green = (uint16_t)(PWM_PERIOD * 0.8);
-            blue = (uint16_t)(PWM_PERIOD * 0.4);
-            break;
+        case LED_DIM:
+            // Usa il valore lux già letto (da aggiornare separatamente)
+                        if (lux >= 1000.0) {
+                            red = green = blue = PWM_PERIOD;
+                        } else if (lux <= 10.0) {
+                            red = PWM_PERIOD;
+                            green = (uint16_t)(PWM_PERIOD * 0.6);
+                            blue = (uint16_t)(PWM_PERIOD * 0.2);
+                        } else {
+                            float t = (lux - 10.0) / (1000.0 - 10.0);
+                            red = PWM_PERIOD;
+                            green = (uint16_t)(PWM_PERIOD * (0.6 + 0.4 * t));
+                            blue = (uint16_t)(PWM_PERIOD * t);
+                        }
+                        break;
         case LED_COOL_WHITE:
             red = PWM_PERIOD;
             green = PWM_PERIOD;
@@ -102,24 +118,32 @@ void updateLED(uint8_t option) {
                 setColor(LED_OFF);
             }
             break;
-        case 1: // Warm White
+        case 1: // Led Dim
         case 2: // Cool White
         case 3: // Red
         case 4: // Green
         case 5: // Blue
             {
                 LEDColor newColor = option; // Options match enum values
-                if (newColor != currentColor) {
+                //if (newColor != currentColor) {
                     currentColor = newColor;
                     //if (ledActive) {
+                    printf("cambio colore base");
                         setColor(currentColor);
                         ledActive = 1;
                     //}
-                }
+                //}
             }
             break;
 
         default:
             break;
+    }
+}
+
+void updateWarmWhite() {
+    if(currentColor == LED_DIM && ledActive) {
+        lux = getLux(); // Leggi il valore attuale della luce
+        setColor(LED_DIM); // Ricalcola il colore
     }
 }

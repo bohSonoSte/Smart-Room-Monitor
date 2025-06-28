@@ -13,6 +13,7 @@ typedef enum {
 void _initPWM(void);
 void setColor(LEDColor color);
 void updateLED(uint8_t option);
+void updateWarmWhite();
 
 
 #endif

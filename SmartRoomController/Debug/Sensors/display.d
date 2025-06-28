@@ -64,6 +64,8 @@ Sensors/display.obj: ../Sensors/temperature.h
 Sensors/display.obj: C:/ti/ccs1280/ccs/ccs_base/arm/include/msp.h
 Sensors/display.obj: ../Sensors/lightSensor.h
 Sensors/display.obj: ../Sensors/led.h
+Sensors/display.obj: ../Sensors/rtc.h
+Sensors/display.obj: C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h
 
 ../Sensors/display.c:
 
@@ -192,4 +194,8 @@ C:/ti/ccs1280/ccs/ccs_base/arm/include/msp.h:
 ../Sensors/lightSensor.h:
 
 ../Sensors/led.h:
+
+../Sensors/rtc.h:
+
+C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h:
 

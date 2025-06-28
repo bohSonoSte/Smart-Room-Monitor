@@ -11,17 +11,22 @@
 #include "Sensors/lightSensor.h"
 #include "Sensors/display.h"
 #include "Sensors/led.h"
+#include "Sensors/rtc.h"
+#include "Sensors/buzzer.h"
+#include "Sensors/accellerometer.h"
+#include "Sensors/pir.h"
 
 #include <stdio.h>
 
 // Definizioni pin
-#define PIR_PIN         GPIO_PORT_P6, GPIO_PIN4
 #define BUTTON_DOWN       GPIO_PORT_P3, GPIO_PIN5   // S2 (DOWN button)
 #define BUTTON_UP     GPIO_PORT_P5, GPIO_PIN1   // S1 (UP button)
 #define BUTTON_SELECT   GPIO_PORT_P4, GPIO_PIN1
+#define Btn GPIO_PORT_P1, GPIO_PIN1
 #define PWM_PERIOD      1000
 
 #define LED_PIN GPIO_PORT_P2, GPIO_PIN6  // LED rosso del BoosterPack
+#define ALARM_LED_PIN GPIO_PORT_P1, GPIO_PIN0  // LED rosso del BoosterPack
 
 #define IDLE_TIMEOUT_SECONDS 30
 #define TIMER_FREQUENCY 750000  // SMCLK / 16
@@ -34,7 +39,8 @@ typedef enum {
     MENU_LIGHT,
     MENU_MOTION,
     MENU_CLOCK,
-    MENU_LED
+    MENU_LED,
+    TEMP_ALERT
 } MenuState;
 
 // Struttura per gli elementi del menu
@@ -48,6 +54,7 @@ Graphics_Context g_sContext;
 float lux, temp;
 bool motionDetected;
 bool sameDataDisplay;
+bool showedAlarm = false;
 MenuState currentState = MENU_MAIN;
 MenuState lastState = MENU_MAIN;
 uint8_t currentSelection = 0;
@@ -66,9 +73,11 @@ MenuItem mainMenu[] = {
 uint8_t mainMenuSize = sizeof(mainMenu) / sizeof(MenuItem);
 
 
+
 // Inizializzazioni hardware (come nei tuoi esempi)
 void _hwInit(void) {
     WDT_A_holdTimer();
+    Interrupt_disableMaster();
     PCM_setCoreVoltageLevel(PCM_VCORE1);
     FlashCtl_setWaitState(FLASH_BANK0, 2);
     FlashCtl_setWaitState(FLASH_BANK1, 2);
@@ -84,27 +93,21 @@ void _hwInit(void) {
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_UP);
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_DOWN);
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_SELECT);
+    GPIO_setAsInputPinWithPullUpResistor(Btn);
+
+    // Configurazione led alert
+    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);  // Imposta P1.0 come output
+    GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);  // Inizialmente spento
 
 
     // Altre inizializzazioni
     _graphicsInit();
-    _pirInit();
+    initPir();
     _lightSensorInit();
     _temperatureSensorInit();
     _initPWM();
+    initRTC();
 
-}
-
-
-
-void _pirInit(){
-    // Configura il PIR come input con pull-down interno (evita falsi trigger)
-    GPIO_setAsInputPinWithPullDownResistor(PIR_PIN);
-
-    // Configura il LED come output
-    GPIO_setAsOutputPin(LED_PIN);
-    GPIO_setOutputLowOnPin(LED_PIN);  // Spegne il LED all'inizio
-    __delay_cycles(10);
 }
 
 // Gestione input utente
@@ -128,10 +131,12 @@ void handleInput() {
 
         if (currentState == MENU_MAIN) {
             if (currentSelection > 0) currentSelection--;
+            else currentSelection = mainMenuSize - 1;
             drawMainMenu(currentSelection);
         }
         else if (currentState == MENU_LED) {
             if (ledMenuSelection > 0) ledMenuSelection--;
+            else ledMenuSelection = ledMenuSize - 1;
             drawLedScreen(false, ledMenuSelection);
             __delay_cycles(50000);
         }
@@ -146,10 +151,12 @@ void handleInput() {
 
         if (currentState == MENU_MAIN) {
             if (currentSelection < mainMenuSize - 1) currentSelection++;
+            else currentSelection = 0;
             drawMainMenu(currentSelection);
         }
         else if (currentState == MENU_LED) {
             if (ledMenuSelection < ledMenuSize - 1) ledMenuSelection++;
+            else ledMenuSelection = 0;
             drawLedScreen(false, ledMenuSelection);
             __delay_cycles(50000);
         }
@@ -165,22 +172,31 @@ void handleInput() {
         if (currentState == MENU_MAIN) {
             currentState = mainMenu[currentSelection].targetState;
             switch(currentState) {
-                case MENU_TEMPERATURE: drawTemperatureScreen(0); break;
-                case MENU_LIGHT: drawLightScreen(0); break;
-                case MENU_MOTION: drawMotionScreen(0); break;
+                case MENU_TEMPERATURE: drawTemperatureScreen(0); updateWarmWhite(); break;
+                case MENU_LIGHT: drawLightScreen(0); updateWarmWhite(); break;
+                case MENU_MOTION: drawMotionScreen(0); updateWarmWhite(); break;
+                case MENU_CLOCK: drawClockScreen(sameDataDisplay); updateWarmWhite(); break;
                 case MENU_LED:
                     ledMenuSelection = 0; // Reset to first option when entering
+                    updateWarmWhite();
                     drawLedScreen(0, ledMenuSelection);
                     break;
                 default: break;
             }
+        }else if (currentState == TEMP_ALERT) {
+            // Solo nasconde la schermata, ma il LED resta acceso
+            stopBuzzer();
+            currentState = MENU_MAIN;
+            drawMainMenu(currentSelection);
         }
         else if (currentState == MENU_LED) {
             if (ledMenuSelection == ledMenuSize - 1) { // "Back" option
                 currentState = MENU_MAIN;
+                updateWarmWhite();
                 drawMainMenu(currentSelection);
             } else {
                 updateLED(ledMenuSelection); // Handle LED control selection
+                updateWarmWhite();
                 drawLedScreen(0, ledMenuSelection);
                 __delay_cycles(50000);
             }
@@ -196,37 +212,85 @@ void handleInput() {
     lastSelectState = currentSelectState;
 }
 
+void toggleAlarmLed(bool stato){
+    if (stato) {
+        GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);  // Accende il LED
+    } else {
+        GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);    // Spegne il LED
+    }
+}
+
+
 int main(void) {
     MAP_WDT_A_holdTimer(); // Disabilita il Watchdog
 
-
     _hwInit();
-    drawMainMenu(currentSelection);
-    printf("Hardware Init \n");
 
+    drawMainMenu(currentSelection);
+
+    // Modifica nel main loop
     while (1) {
         lastState = currentState;
-        handleInput();
-        if(lastState == currentState){
-            sameDataDisplay = true;
-        }else{
-            sameDataDisplay = false;
-        }
+        PIR_detect();
 
-        // Aggiorna solo gli schermi che mostrano dati in tempo reale
-        if (currentState != MENU_MAIN) {
-            switch(currentState) {
-                case MENU_TEMPERATURE: drawTemperatureScreen(sameDataDisplay); break;
-                case MENU_LIGHT: drawLightScreen(sameDataDisplay); break;
-                case MENU_MOTION: drawMotionScreen(sameDataDisplay); break;
-                case MENU_LED:
-                    // Pass current selection to maintain highlight
-                    //drawLedScreen(sameDataDisplay, ledMenuSelection);
-                    //break;
-                default: break;
+        // Gestione allarme temperatura
+        float currentTemp = getTemperature();
+
+        if (currentTemp > 40) {
+            //toggleAlarmLed(true);  // Accendi il LED se temp > 25
+            if (!showedAlarm) {
+                currentState = TEMP_ALERT;
+                _buzzerInit();
+                showedAlarm = true;
+                sameDataDisplay = false; // Forza l'aggiornamento della schermata
+            }
+        } else {
+            //toggleAlarmLed(false);  // Spegni il LED
+            if (showedAlarm) {
+                // Se stiamo uscendo dallo stato di allarme
+                if (currentState == TEMP_ALERT) {
+                    stopBuzzer();
+                    currentState = MENU_MAIN;
+                    drawMainMenu(currentSelection);
+                }
+                showedAlarm = false;
             }
         }
 
-        __delay_cycles(200000); // Piccolo ritardo per ridurre il consumo energetico
+        handleInput();
+
+        // Aggiorna il flag sameDataDisplay
+        sameDataDisplay = (lastState == currentState);
+
+        updateWarmWhite();
+        updateTimeFromRTC();
+
+        // Aggiorna gli schermi
+        if(currentState == TEMP_ALERT){
+            drawTemperatureScreen_Alert(sameDataDisplay);
+        }
+        if (currentState != MENU_MAIN) {
+            switch(currentState) {
+                case MENU_TEMPERATURE:
+                    //drawTemperatureScreen(sameDataDisplay);
+                    drawEnhancedTemperatureScreen(sameDataDisplay, getTemperature());
+                    break;
+                case MENU_LIGHT:
+                    drawLightScreen(sameDataDisplay);
+                    break;
+                case MENU_MOTION:
+                    drawMotionScreen(sameDataDisplay);
+                    break;
+                case MENU_CLOCK:
+                    drawClockScreen(sameDataDisplay);
+                    break;
+                case MENU_LED:
+                    // Nessun disegno specifico qui
+                    break;
+                default: break;
+            }
+            updateWarmWhite();
+        }
+        __delay_cycles(200000);
     }
 }

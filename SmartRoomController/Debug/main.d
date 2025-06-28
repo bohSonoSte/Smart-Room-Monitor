@@ -64,6 +64,11 @@ main.obj: ../Sensors/lightSensor.h
 main.obj: ../Sensors/display.h
 main.obj: C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h
 main.obj: ../Sensors/led.h
+main.obj: ../Sensors/rtc.h
+main.obj: C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h
+main.obj: ../Sensors/buzzer.h
+main.obj: ../Sensors/accellerometer.h
+main.obj: ../Sensors/pir.h
 main.obj: C:/ti/ccs1280/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h
 main.obj: C:/ti/ccs1280/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h
 
@@ -194,6 +199,16 @@ C:/ti/ccs1280/ccs/ccs_base/arm/include/msp.h:
 C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h:
 
 ../Sensors/led.h:
+
+../Sensors/rtc.h:
+
+C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h:
+
+../Sensors/buzzer.h:
+
+../Sensors/accellerometer.h:
+
+../Sensors/pir.h:
 
 C:/ti/ccs1280/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h:
 

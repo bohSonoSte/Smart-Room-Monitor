@@ -50,6 +50,10 @@ Sensors/led.obj: C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp
 Sensors/led.obj: C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/wdt_a.h
 Sensors/led.obj: C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/sysctl.h
 Sensors/led.obj: C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/flash.h
+Sensors/led.obj: ../Sensors/lightsensor.h
+Sensors/led.obj: C:/ti/ccs1280/ccs/ccs_base/arm/include/msp.h
+Sensors/led.obj: C:/ti/ccs1280/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h
+Sensors/led.obj: C:/ti/ccs1280/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h
 
 ../Sensors/led.c:
 
@@ -150,4 +154,12 @@ C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01
 C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/sysctl.h:
 
 C:/Users/matty/OneDrive/Desktop/Embedded/CSS_lib/simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/flash.h:
+
+../Sensors/lightsensor.h:
+
+C:/ti/ccs1280/ccs/ccs_base/arm/include/msp.h:
+
+C:/ti/ccs1280/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h:
+
+C:/ti/ccs1280/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h:
 

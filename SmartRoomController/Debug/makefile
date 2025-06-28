@@ -18,9 +18,13 @@ ORDERED_OBJS += \
 "./system_msp432p401r.obj" \
 "./LcdDriver/Crystalfontz128x128_ST7735.obj" \
 "./LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" \
+"./Sensors/accellerometer.obj" \
+"./Sensors/buzzer.obj" \
 "./Sensors/display.obj" \
 "./Sensors/led.obj" \
 "./Sensors/lightSensor.obj" \
+"./Sensors/pir.obj" \
+"./Sensors/rtc.obj" \
 "./Sensors/temperature.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -157,8 +161,8 @@ SmartRoomController.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "HAL_I2C.obj" "HAL_OPT3001.obj" "HAL_TMP006.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Sensors\display.obj" "Sensors\led.obj" "Sensors\lightSensor.obj" "Sensors\temperature.obj" 
-	-$(RM) "HAL_I2C.d" "HAL_OPT3001.d" "HAL_TMP006.d" "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "LcdDriver\Crystalfontz128x128_ST7735.d" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "Sensors\display.d" "Sensors\led.d" "Sensors\lightSensor.d" "Sensors\temperature.d" 
+	-$(RM) "HAL_I2C.obj" "HAL_OPT3001.obj" "HAL_TMP006.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Sensors\accellerometer.obj" "Sensors\buzzer.obj" "Sensors\display.obj" "Sensors\led.obj" "Sensors\lightSensor.obj" "Sensors\pir.obj" "Sensors\rtc.obj" "Sensors\temperature.obj" 
+	-$(RM) "HAL_I2C.d" "HAL_OPT3001.d" "HAL_TMP006.d" "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "LcdDriver\Crystalfontz128x128_ST7735.d" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "Sensors\accellerometer.d" "Sensors\buzzer.d" "Sensors\display.d" "Sensors\led.d" "Sensors\lightSensor.d" "Sensors\pir.d" "Sensors\rtc.d" "Sensors\temperature.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
