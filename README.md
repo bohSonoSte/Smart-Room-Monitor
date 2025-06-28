@@ -4,8 +4,8 @@
 <br />
 <div align="center">
 
-<h3 align="center">Smart Room Monitor</h3>
-
+<!-- <h3 align="center">Smart Room Monitor</h3>-->
+<img src=Docs/logo.png width=40%>
 
 <br>
 
@@ -18,44 +18,18 @@
   </div> 
 
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol style="counter-reset: section;">
-    <li><a href="#project-introduction">Project introduction</a></li>
-    <li><a href="#built-with">Built with</a>
-    <ol>
-    <li><a href="#software-requirements">Software requirements</a></li>
-    <li><a href="#hardware-requirements">Hardware requirements</a></li>
-    </ol></li>
-    <li><a href="#setting-up-the-hardware">Setting up the hardware</a></li>
-    <li><a href="#project-structure">Project structure</a></li>
-    <li><a href="#functionalities">Functionalities</a></li>
-    <li><a href="#user-guide">User guide</a></li>
-    <li><a href="#future-upgrades">Future upgrades</a></li>
-    <li><a href="#useful-links">Useful links</a></li>
-    <li><a href="#team-members">Team members</a></li>
-  </ol>
-</details>
-<br>
-<!--
-<style>
-    ol{
-        list-style-type: none;
-    }
-    ol > li {
-        counter-increment: section;
-    }
-    ol > li::before {
-        content: counter(section) ". "; 
-    }
-    ol ol > li {
-        counter-increment: subsection;
-    }
-    ol ol > li::before {
-        content: counter(section) "." counter(subsection) " ";
-    }
-    </style> -->
-
+- [Project introduction](#project-introduction)
+- [Built with](#built-with)
+- [Software requirements](#software-requirements)
+- [Hardware requirements](#hardware-requirements)
+- [Setting up the hardware](#setting-up-the-hardware)
+- [Project structure](#project-structure)
+- [Project Layout](#project-layout)
+- [Getting Started](#getting-started)
+- [User guide](#user-guide)
+- [Future upgrades](#future-upgrades)
+- [Useful links](#useful-links)
+- [Team members](#team-members)
 
 
 <!-- PROJECT INTRODUCTION -->
@@ -78,9 +52,9 @@ C <br>
 
 # Software requirements
 Software required to program the boards: <br>
-Code Composer Studio (https://www.ti.com/tool/CCSTUDIO) <br>
-- MSP Driver Library (https://www.ti.com/tool/MSPDRIVERLIB) <br>
-- MSP Graphics Library (https://www.ti.com/tool/MSP-GRLIB) <br>
+Code Composer Studio (available [here](https://www.ti.com/tool/CCSTUDIO)) <br>
+- MSP Driver Library (available [here](https://www.ti.com/tool/MSPDRIVERLIB)) <br>
+- MSP Graphics Library (available [here](https://www.ti.com/tool/MSP-GRLIB)) <br>
 </p>
 
 
@@ -135,8 +109,7 @@ The HC-SR501 PIR is a motion detector module. It senses infrared radiation chang
 <!-- SETTING UP THE HARDWARE -->
 # Setting up the hardware
 
-
-<img src=Docs/EMBEDDED.png width="70%"> <br><br>
+<img src=Docs/EMBEDDED.png width="70%">
 
 First, we insert the BoosterPack into the MSP432, ensuring every pin is correctly aligned. Then we connect the MSP432 to the PC using a USB-A to Micro USB cable.
 To connect the PIR sensor to the board, we used male-to-female jumper wires and a breadboard. Following the motion sensor's datasheet, we wired the VCC to the board's 5V pin, GND to the board's ground and the DATA to pin P6.4. 
@@ -148,22 +121,26 @@ To connect the PIR sensor to the board, we used male-to-female jumper wires and 
 <!-- PROJECT STRUCTURE -->
 # Project structure
 The main menu, continuously displaying time and date, provides access to all system functions:
+FOTO MAIN MENU
 
 ### Temperature
 Displays the current ambient temperature. 
-*foto temperatura*
+FOTO TEMPERATURA
 
 ### Light
 Reports the current illuminance in lux, enabling precise monitoring of ambient lighting conditions.
-*foto lux*
+FOTO LUCE
 
 ### Change Time
 Allows manual adjustment of the real-time clock to compensate for drift, Daylight Saving Time shifts, or initial configuration. Dedicated buttons increment and decrement hours, minutes, day, month, and year; pressing SELECT confirms the updated time/date.
+FOTO CHANGE CLK
 
 ### LED
 Controls the onboard RGB LED. In "Auto" mode, the LED color dynamically maps to measured illuminance. For a low lux value, we have a warm yellow, for high lux, a cool white. The user can also select one of several fixed color outputs: blue, green, red, or cold white.
+FOTO LED
 
 If the temperature exceeds a predefined high or low thresholds (+40°C and 0°C), or if the onboard accelerometer detects significant motion (for example an earthquake), the system activates a visual alert (red LED) and an audible alarm (buzzer). We need to press SELECT to acknowledge and silence the alarm.
+FOTO ALLARME
 
 Each function is accessed via the tactile buttons on the BoosterPack MKII, ensuring intuitive navigation and reliable operation in a compact embedded system.
 
@@ -178,7 +155,40 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
 <!-- PROJECT LAYOUT -->
 # Project Layout
 
-ORGANIZZAZIONE PROGRAMMA/CODICE
+```
+├───docs
+├───driverlib
+│   └───source
+└───embedded-project-src
+    ├───features
+    │   ├───alarm
+    │   ├───climate
+    │   ├───door
+    │   └───irrigation
+    ├───lcdDisplay
+    ├───outputs
+    │   ├───blueLED
+    │   ├───buzzer
+    │   ├───redLED
+    │   ├───rgbLED
+    │   └───servo
+    ├───sensors
+    │   ├───accelerometer
+    │   ├───alarm
+    │   ├───climate
+    │   ├───doorButton
+    │   ├───irrigationButton
+    │   ├───light
+    │   └───voltmeter
+    ├───targetConfigs
+    ├───testing
+    │   ├───alarm
+    │   ├───climate
+    │   ├───door
+    │   └───irrigation
+    └───tools
+        └───LcdDriver
+```
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
@@ -234,12 +244,17 @@ ESP
 batteria
 tempo attivazione pir non analogico
 
+
+
+
+
 <br>
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- USEFUL LINKS -->
 # Useful links
+
 
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
