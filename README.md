@@ -202,7 +202,7 @@ Place the TI driverlib `source` folder inside the `driverlib` folder like this:
 IMMAGINE QUI
 
 > You can download the driverlib folder
-> from [here]()
+> from [here](https://drive.google.com/file/d/1_5TsECed3wNJpIpllxYYdD06aFbkk7Fc/view)
 
 Open the folder `NOME CARTELLA DEL PROGETTO` in CCS.
 
@@ -227,25 +227,29 @@ User's guide available [here](https://softwaredl.ti.com/ccs/esd/documents/users_
 # User guide
 
 The user interface is designed to be highly intuitive and user-friendly. 
-Navigate the menu using the two tactile buttons on the right side of the BoosterPack MKII: press the lower button to scroll down, the upper button to scroll up. Press the joystick's SELECT button to confirm the chosen menu function. Once in, if the button SELECT is pressed again you can return to the main menu. In the event that an alarm is triggered, whether due to temperature conditions or a seismic activity, the red LED will illuminate and the buzzer will sound. Once you have addressed the underlying issue, press SELECT one more time to silence the buzzer and extinguish the red LED, restoring the system to normal operation.
+Navigate the menu using the two tactile buttons on the right side of the BoosterPack MKII: press the lower button to scroll down, the upper button to scroll up. Press the joystick's SELECT button to confirm the chosen menu function. Once in, if the button SELECT is pressed again you can return to the main menu. In the event that an alarm is triggered, due to temperature conditions, the red LED will light up and the buzzer will sound. Once you have addressed the underlying issue, press SELECT one more time to silence the buzzer and turn off the red LED, restoring the system to normal operation.
 
 
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
-<!-- PROBLEMS    DA METTERE????????-->
-<!-- ## Problems and how we solved them
-Pir senson pin -->
 
 
 <!-- FUTURE UPGRADES -->
 # Future upgrades
-ESP
-batteria
-tempo attivazione pir non analogico
 
+### 1. Onboard Battery Backup  
+Adding a rechargeable Li‑ion or Li‑Po battery and a power‑path management circuit can lead to autonomous operation without a constant PC connection.  Also uninterrupted real‑time clock (RTC) and settings retention through power loss or optional low‑battery warning routine can be implemented.  
 
+### 2. Configurable PIR Hold‑Time in Firmware  
+If we move “HIGH” hold‑time configuration from hardware trimmers into a firmware parameter (for example 5–30 seconds) we can create precise, software‑driven control of motion-detection duration.
 
+### 3. ESP‑Powered Remote Connectivity  
+An ESP32/ESP8266 module can be integrated to host a web server and expose RESTful APIs. This way, we can have mobile or desktop access for real‑time control and alerts and enhance user comfort and security.
+Some examples of features that can be added are: 
+  - Web‑based dashboard (for monitor conditions and change settings)  
+  - SSL/TLS encryption and user authentication  
+  - Push notifications via MQTT or Firebase  
 
 
 <br>
@@ -254,13 +258,19 @@ tempo attivazione pir non analogico
 
 <!-- USEFUL LINKS -->
 # Useful links
-
-
+- [Video presentation]()
+- [Presentation]()
+- [Pdf presentation]()
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 
 <!-- TEAM MEMBERS -->
 # Team members
+Every team member is responsible and worked together for the whole project. We worked to the project meeting each other in person everytime.
+- Elisa Raffaella Sterpu (elisa.sterpu@studenti.unitn.it)
+- Mattia Bernabè (mattia.bernabe@studenti.unitn.it)
+- Stefano Corelli (stefano.corelli@studenti.unitn.it)
+- Nicolas Venturi (nicolas.venturi@studenti.unitn.it)
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
