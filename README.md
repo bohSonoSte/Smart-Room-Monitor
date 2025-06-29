@@ -250,8 +250,8 @@ Some examples of features that can be added are:
 <!-- USEFUL LINKS -->
 # Useful links
 - [Video presentation]()
-- [Presentation]()
-- [Pdf presentation]()
+- [Presentation](docs/Pptx/Smart-Room-Monitor.pptx)
+- [Pdf presentation](docs/Pptx/Smart-Room-Monitor.pdf)
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
