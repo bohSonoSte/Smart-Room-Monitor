@@ -41,7 +41,7 @@ With built-in safety alerts and effortless customization, mastering your room ha
 <br>
 
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- BUILT WITH -->
 # Built with
@@ -98,13 +98,13 @@ They are connected to pullup resistors that drive the pin low if the buttons are
 
 ## HC-SR501 PIR Sensor <br>
 <img src=Docs/pir.png width="30%"> <br><br>
-The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power—around 50 microamps when idle. We connected the PIR to pin P6.4 using a breadboard and some cables.
+The HC-SR501 PIR is a motion detector module. It senses infrared radiation changes in the environment. In our case, the radiation of human body heat is interpreted as motion. When motion is detected, it outputs a digital signal HIGH (3.3V), otherwise it stays LOW. The detection range can be adjusted between 3 to 7 meters. Also the delay time can be adjusted from 5 seconds to 5 minutes.The sensor operates on 5V but can handle a voltage range of 5V to 20V, and it consumes very little power, around 50 microamps when idle. We connected the PIR to pin P6.4 using a breadboard and some cables.
 
 
 
 </p>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- SETTING UP THE HARDWARE -->
 # Setting up the hardware
@@ -116,7 +116,7 @@ To connect the PIR sensor to the board, we used male-to-female jumper wires and 
 
 <br>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- PROJECT STRUCTURE -->
 # Project structure
@@ -156,7 +156,7 @@ If the temperature exceeds a predefined high or low thresholds (+40°C and 15°C
 Each function is accessed via the tactile buttons on the BoosterPack MKII, ensuring intuitive navigation and reliable operation in a compact embedded system.
 
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 <!-- PROJECT LAYOUT -->
@@ -185,7 +185,7 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
 
 ```
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 
@@ -212,7 +212,7 @@ User's guide available [here](https://softwaredl.ti.com/ccs/esd/documents/users_
 
 <br>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- USER GUIDE -->
 # User guide
@@ -222,7 +222,7 @@ Navigate the menu using the two tactile buttons on the right side of the Booster
 
 
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 
@@ -245,7 +245,7 @@ Some examples of features that can be added are:
 
 <br>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- USEFUL LINKS -->
 # Useful links
@@ -253,7 +253,7 @@ Some examples of features that can be added are:
 - [Presentation](Docs/Pptx/Smart-Room-Monitor.pptx)
 - [Pdf presentation](Docs/Pptx/Smart-Room-Monitor.pdf)
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 <!-- TEAM MEMBERS -->
@@ -264,4 +264,4 @@ Every team member worked together and is responsible for the whole project.
 - Stefano Corelli (stefano.corelli@studenti.unitn.it)
 - Nicolas Venturi (nicolas.venturi@studenti.unitn.it)
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
