@@ -41,7 +41,7 @@ With built-in safety alerts and effortless customization, mastering your room ha
 <br>
 
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- BUILT WITH -->
 # Built with
@@ -104,7 +104,7 @@ The HC-SR501 PIR is a motion detector module. It senses infrared radiation chang
 
 </p>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc"> top</a>)</p>
 
 <!-- SETTING UP THE HARDWARE -->
 # Setting up the hardware
@@ -116,7 +116,7 @@ To connect the PIR sensor to the board, we used male-to-female jumper wires and 
 
 <br>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- PROJECT STRUCTURE -->
 # Project structure
@@ -156,7 +156,7 @@ If the temperature exceeds a predefined high or low thresholds (+40°C and 0°C)
 Each function is accessed via the tactile buttons on the BoosterPack MKII, ensuring intuitive navigation and reliable operation in a compact embedded system.
 
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 <!-- PROJECT LAYOUT -->
@@ -197,7 +197,7 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
         └───LcdDriver
 ```
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 
@@ -228,7 +228,7 @@ User's guide available [here](https://softwaredl.ti.com/ccs/esd/documents/users_
 
 <br>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- USER GUIDE -->
 # User guide
@@ -238,7 +238,7 @@ Navigate the menu using the two tactile buttons on the right side of the Booster
 
 
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 
@@ -261,7 +261,7 @@ Some examples of features that can be added are:
 
 <br>
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- USEFUL LINKS -->
 # Useful links
@@ -269,7 +269,7 @@ Some examples of features that can be added are:
 - [Presentation]()
 - [Pdf presentation]()
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 
 <!-- TEAM MEMBERS -->
@@ -280,4 +280,4 @@ Every team member is responsible and worked together for the whole project. We w
 - Stefano Corelli (stefano.corelli@studenti.unitn.it)
 - Nicolas Venturi (nicolas.venturi@studenti.unitn.it)
 
-<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
