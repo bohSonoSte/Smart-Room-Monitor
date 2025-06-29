@@ -164,37 +164,14 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
 
 ```
 ├───docs
-├───driverlib
-│   └───source
-└───embedded-project-src
-    ├───features
-    │   ├───alarm
-    │   ├───climate
-    │   ├───door
-    │   └───irrigation
-    ├───lcdDisplay
-    ├───outputs
-    │   ├───blueLED
-    │   ├───buzzer
-    │   ├───redLED
-    │   ├───rgbLED
-    │   └───servo
-    ├───sensors
-    │   ├───accelerometer
-    │   ├───alarm
-    │   ├───climate
-    │   ├───doorButton
-    │   ├───irrigationButton
-    │   ├───light
-    │   └───voltmeter
-    ├───targetConfigs
-    ├───testing
-    │   ├───alarm
-    │   ├───climate
-    │   ├───door
-    │   └───irrigation
-    └───tools
-        └───LcdDriver
+├───SmartRoomController_v1
+    ├───LcdDriver
+    ├───Sensors
+    │   ├─── ... Files used in the program (temperature, rtc, ...)
+    ├───images
+    │   ├─── ... Files for creating icons (logo, lightbulb, ...)
+    ├───targetConfig
+
 ```
 
 <p align="right">(<a href="#readme">back to top</a>)</p>
