@@ -41,7 +41,7 @@ With built-in safety alerts and effortless customization, mastering your room ha
 <br>
 
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- BUILT WITH -->
 # Built with
@@ -104,7 +104,7 @@ The HC-SR501 PIR is a motion detector module. It senses infrared radiation chang
 
 </p>
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- SETTING UP THE HARDWARE -->
 # Setting up the hardware
@@ -116,7 +116,7 @@ To connect the PIR sensor to the board, we used male-to-female jumper wires and 
 
 <br>
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- PROJECT STRUCTURE -->
 # Project structure
@@ -132,13 +132,13 @@ Displays the current ambient temperature.
 <br>
 
 ### Light
-Reports the current illuminance in lux, enabling precise monitoring of ambient lighting conditions.
+Reports the current light intensity in lux, enabling precise monitoring of ambient lighting conditions.
 <br>
 <img src=Docs/luxDisplay.jpg width=30%>
 <br>
 
 ### Change Time
-Allows manual adjustment of the real-time clock to compensate for drift, Daylight Saving Time shifts, or initial configuration. Dedicated buttons increment and decrement hours, minutes, day, month, and year; pressing SELECT confirms the updated time/date.
+Allows manual adjustment of the real-time clock to compensate for drift, Daylight Saving Time shifts, or initial configuration. Dedicated buttons increment and decrement hours, minutes, day, month, and year; pressing SELECT confirms the updated time/date. 
 <br>
 <img src=Docs/editDisplay.jpg width=30%>
 <br>
@@ -149,14 +149,14 @@ Controls the onboard RGB LED. In "Auto" mode, the LED color dynamically maps to 
 <img src=Docs/ledDisplay.jpg width=30%>
 <br>
 
-If the temperature exceeds a predefined high or low thresholds (+40°C and 0°C), or if the onboard accelerometer detects significant motion (for example an earthquake), the system activates a visual alert and an audible alarm (buzzer). In the event of an over‑temperature emergency, the LED will glow bright red. If the temperature falls below zero degrees celsius, the LED will be of a cool blue. If seismic activity is detected, the LED will switch to a yellow‑green color to indicate an earthquake alert. We need to press SELECT to acknowledge and silence the alarm.
+If the temperature exceeds a predefined high or low thresholds (+40°C and 15°C), or if the onboard accelerometer detects significant motion (for example an earthquake), the system activates a visual alert and an audible alarm (buzzer). In the event of an over‑temperature emergency, the LED will glow bright red. If the temperature falls below 15 degrees celsius, the LED will be of a cool blue. If seismic activity is detected, the LED will switch to a yellow‑green color to indicate an earthquake alert. We need to press SELECT to acknowledge and silence the alarm.
 <br>
 <img src=Docs/errDisplay.jpg width=30%>
 <br>
 Each function is accessed via the tactile buttons on the BoosterPack MKII, ensuring intuitive navigation and reliable operation in a compact embedded system.
 
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 
 <!-- PROJECT LAYOUT -->
@@ -167,14 +167,25 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
 ├───SmartRoomController_v1
     ├───LcdDriver
     ├───Sensors
-    │   ├─── ... Files used in the program (temperature, rtc, ...)
+    │   ├───accelerometer
+    │   ├───buzzer
+    │   ├───display
+    │   ├───led
+    │   ├───lightSensor
+    │   ├───menu
+    │   ├───pir
+    │   ├───rtc
+    │   └───temperature
     ├───images
-    │   ├─── ... Files for creating icons (logo, lightbulb, ...)
+    │   ├───lampadina
+    │   ├───logoSRM
+    │   ├───rgbimage
+    │   └───termometro_8bit
     ├───targetConfig
 
 ```
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 
 
@@ -183,21 +194,17 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
 
 Place the TI driverlib `source` folder inside the `driverlib` folder like this:
 
-IMMAGINE QUI
-
 > You can download the driverlib folder
 > from [here](https://drive.google.com/file/d/1_5TsECed3wNJpIpllxYYdD06aFbkk7Fc/view)
 
-Open the folder `NOME CARTELLA DEL PROGETTO` in CCS.
+Open the folder `SmartRoomCOntroller_v1` in CCS.
 
-<!-- > Note: do NOT open in CCS the whole `embedded_project` folder, since it contains additional files that are not needed for the CCS project. -->
-
-The project includes are already set up to include the driverlib folder, you should be able to build the project without
-any additional setup.
+The project includes are already set up to include the driverlib folder, you should be able to build the project without any additional setup.
 
 ARM compiler include options: `${PROJECT_ROOT}/../driverlib/source`
 
 ARM linker file search path options: `${PROJECT_ROOT}/../driverlib/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib`
+`${PROJECT_ROOT}/../driverlib/source\ti\grlib\lib\ccs\m4f\grlib.a`
 
 To burn and run the project, use the CCS GUI 
 User's guide available [here](https://softwaredl.ti.com/ccs/esd/documents/users_guide_ccs_20.0.0/index.html)
@@ -205,7 +212,7 @@ User's guide available [here](https://softwaredl.ti.com/ccs/esd/documents/users_
 
 <br>
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- USER GUIDE -->
 # User guide
@@ -215,7 +222,7 @@ Navigate the menu using the two tactile buttons on the right side of the Booster
 
 
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 
 
@@ -238,7 +245,7 @@ Some examples of features that can be added are:
 
 <br>
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 <!-- USEFUL LINKS -->
 # Useful links
@@ -246,15 +253,15 @@ Some examples of features that can be added are:
 - [Presentation]()
 - [Pdf presentation]()
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
 
 
 <!-- TEAM MEMBERS -->
 # Team members
-Every team member is responsible and worked together for the whole project. We worked to the project meeting each other in person everytime.
+Every team member worked together and is responsible for the whole project.
 - Elisa Raffaella Sterpu (elisa.sterpu@studenti.unitn.it)
 - Mattia Bernabè (mattia.bernabe@studenti.unitn.it)
 - Stefano Corelli (stefano.corelli@studenti.unitn.it)
 - Nicolas Venturi (nicolas.venturi@studenti.unitn.it)
 
-<p align="right">(<a href="#readme">back to top</a>)</p>
+<p align="right">(<a href="#readme-erpc">back to top</a>)</p>
