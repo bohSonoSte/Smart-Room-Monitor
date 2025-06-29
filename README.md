@@ -149,15 +149,11 @@ Controls the onboard RGB LED. In "Auto" mode, the LED color dynamically maps to 
 <img src=Docs/ledDisplay.jpg width=30%>
 <br>
 
-If the temperature exceeds a predefined high or low thresholds (+40°C and 0°C), or if the onboard accelerometer detects significant motion (for example an earthquake), the system activates a visual alert (red LED) and an audible alarm (buzzer). We need to press SELECT to acknowledge and silence the alarm.
+If the temperature exceeds a predefined high or low thresholds (+40°C and 0°C), or if the onboard accelerometer detects significant motion (for example an earthquake), the system activates a visual alert and an audible alarm (buzzer). In the event of an over‑temperature emergency, the LED will glow bright red. If the temperature falls below zero degrees celsius, the LED will be of a cool blue. If seismic activity is detected, the LED will switch to a yellow‑green color to indicate an earthquake alert. We need to press SELECT to acknowledge and silence the alarm.
 <br>
 <img src=Docs/errDisplay.jpg width=30%>
 <br>
 Each function is accessed via the tactile buttons on the BoosterPack MKII, ensuring intuitive navigation and reliable operation in a compact embedded system.
-
-
-
-
 
 
 <p align="right">(<a href="#readme-erpc">back to top</a>)</p>
