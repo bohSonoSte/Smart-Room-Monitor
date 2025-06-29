@@ -249,7 +249,7 @@ Some examples of features that can be added are:
 
 <!-- USEFUL LINKS -->
 # Useful links
-- [Video presentation]((https://drive.google.com/file/d/1EdmI2v77GezcWot5mOCfczlWs9qDackf/view?usp=drive_link))
+- [Video presentation](https://drive.google.com/file/d/1EdmI2v77GezcWot5mOCfczlWs9qDackf/view?usp=drive_link)
 - [Presentation](Docs/Pptx/Smart-Room-Monitor.pptx)
 - [Pdf presentation](Docs/Pptx/Smart-Room-Monitor.pdf)
 
