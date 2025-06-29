@@ -125,22 +125,22 @@ FOTO MAIN MENU
 
 ### Temperature
 Displays the current ambient temperature. 
-FOTO TEMPERATURA
+<img src=Docs/tempDisplay.png width=40%>
 
 ### Light
 Reports the current illuminance in lux, enabling precise monitoring of ambient lighting conditions.
-FOTO LUCE
+<img src=Docs/luxDisplay.png width=40%>
 
 ### Change Time
 Allows manual adjustment of the real-time clock to compensate for drift, Daylight Saving Time shifts, or initial configuration. Dedicated buttons increment and decrement hours, minutes, day, month, and year; pressing SELECT confirms the updated time/date.
-FOTO CHANGE CLK
+<img src=Docs/editDisplay.png width=40%>
 
 ### LED
 Controls the onboard RGB LED. In "Auto" mode, the LED color dynamically maps to measured illuminance. For a low lux value, we have a warm yellow, for high lux, a cool white. The user can also select one of several fixed color outputs: blue, green, red, or cold white.
-FOTO LED
+<img src=Docs/ledDisplay.png width=40%>
 
 If the temperature exceeds a predefined high or low thresholds (+40°C and 0°C), or if the onboard accelerometer detects significant motion (for example an earthquake), the system activates a visual alert (red LED) and an audible alarm (buzzer). We need to press SELECT to acknowledge and silence the alarm.
-FOTO ALLARME
+<img src=Docs/errDisplay.png width=40%>
 
 Each function is accessed via the tactile buttons on the BoosterPack MKII, ensuring intuitive navigation and reliable operation in a compact embedded system.
 
