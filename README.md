@@ -104,7 +104,7 @@ The HC-SR501 PIR is a motion detector module. It senses infrared radiation chang
 
 </p>
 
-<p align="right">(<a href="#readme-erpc"> top</a>)</p>
+<p align="right">(<a href="#readme">back to top</a>)</p>
 
 <!-- SETTING UP THE HARDWARE -->
 # Setting up the hardware
