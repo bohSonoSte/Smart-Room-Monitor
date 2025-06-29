@@ -181,7 +181,7 @@ Each function is accessed via the tactile buttons on the BoosterPack MKII, ensur
     │   ├───logoSRM
     │   ├───rgbimage
     │   └───termometro_8bit
-    ├───targetConfig
+    └───targetConfig
 
 ```
 
