@@ -23,7 +23,7 @@
 
 #include <stdio.h>
 
-// Definizioni pin
+// Pin definitions
 #define BUTTON_DOWN       GPIO_PORT_P3, GPIO_PIN5   // S2 (DOWN button)
 #define BUTTON_UP     GPIO_PORT_P5, GPIO_PIN1   // S1 (UP button)
 #define BUTTON_SELECT   GPIO_PORT_P4, GPIO_PIN1
@@ -32,12 +32,12 @@
 
 
 #define PIR_LED         GPIO_PORT_P1, GPIO_PIN0
-#define LED_PIN GPIO_PORT_P2, GPIO_PIN6  // LED rosso del BoosterPack
+#define LED_PIN GPIO_PORT_P2, GPIO_PIN6  // Boosterpack red LED
 #define LED_TERREMOTO GPIO_PORT_P2, GPIO_PIN0
 #define LED_TEMP_ALTA GPIO_PORT_P2, GPIO_PIN1
 #define LED_TEMP_BASSA GPIO_PORT_P2, GPIO_PIN2
 
-#define ALARM_LED_PIN GPIO_PORT_P1, GPIO_PIN0  // LED rosso del BoosterPack
+#define ALARM_LED_PIN GPIO_PORT_P1, GPIO_PIN0  // Boosterpack red LED
 
 #define IDLE_TIMEOUT_SECONDS 30
 #define TIMER_FREQUENCY 750000  // SMCLK / 16
@@ -52,7 +52,7 @@
 uint8_t editMode = EDIT_MODE_NONE;
 
 
-// Stati del menu
+// menu states
 typedef enum {
     MENU_SPLASH,
     MENU_QUADRANT,
@@ -65,13 +65,13 @@ typedef enum {
     TEMP_ALERT
 } MenuState;
 
-// Struttura per gli elementi del menu
+// Struct for menu elements
 typedef struct {
     const char* name;
     MenuState targetState;
 } MenuItem;
 
-// Variabili globali
+// Global variables
 Graphics_Context g_sContext;
 float lux, temp;
 bool motionDetected;
@@ -87,7 +87,7 @@ const uint8_t ledMenuSize = 7;
 extern const Graphics_Image  dropLogoPalette;
 
 
-// Elementi del menu principale
+// Main menu elements
 MenuItem mainMenu[] = {
     {"Temperature", MENU_TEMPERATURE},
     {"Light Sensor", MENU_LIGHT},
@@ -98,7 +98,7 @@ uint8_t mainMenuSize = sizeof(mainMenu) / sizeof(MenuItem);
 
 
 
-// Inizializzazioni hardware (come nei tuoi esempi)
+// Hardware initialization
 void _hwInit(void) {
     WDT_A_holdTimer();
     Interrupt_disableMaster();
@@ -106,32 +106,32 @@ void _hwInit(void) {
     FlashCtl_setWaitState(FLASH_BANK0, 2);
     FlashCtl_setWaitState(FLASH_BANK1, 2);
 
-    // Configurazione clock
+    // Clock configuration
     CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
     CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
     CS_initClockSignal(CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
     CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
     CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
-    // Configurazione pulsanti
+    // Button configurations
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_UP);
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_DOWN);
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_SELECT);
     GPIO_setAsInputPinWithPullUpResistor(Btn);
 
-    // Configurazione led alert
-    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);  // Imposta P1.0 come output
+    // LED alert configuration
+    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);  // Sets P1.0 as output
     GPIO_setAsOutputPin(LED_TERREMOTO);
     GPIO_setAsOutputPin(LED_TEMP_ALTA);
     GPIO_setAsOutputPin(LED_TEMP_BASSA);
 
-    GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);  // Inizialmente spento
+    GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
     GPIO_setOutputLowOnPin(LED_TERREMOTO);
     GPIO_setOutputLowOnPin(LED_TEMP_ALTA);
     GPIO_setOutputLowOnPin(LED_TEMP_BASSA);
 
 
-    // Altre inizializzazioni
+    // Other initializations
     _graphicsInit();
     initPir();
     _lightSensorInit();
@@ -142,7 +142,7 @@ void _hwInit(void) {
 
 }
 
-// Gestione input utente
+// User input management
 void handleInput() {
     static uint8_t lastUpState = 1;
     static uint8_t lastDownState = 1;
@@ -154,7 +154,7 @@ void handleInput() {
     uint8_t currentDownState = GPIO_getInputPinValue(BUTTON_DOWN);
     uint8_t currentSelectState = GPIO_getInputPinValue(BUTTON_SELECT);
 
-    // Pulsante UP
+    // UP Button
     if (currentUpState == 0 && lastUpState == 1) {
         __delay_cycles(10000); // Debounce
 
@@ -163,7 +163,7 @@ void handleInput() {
             if (quadrantSelection > 0)
                 quadrantSelection--;
             else
-                quadrantSelection = 3;  // da 0 a 3 (4 quadranti)
+                quadrantSelection = 3;  // from 0 to 3 (4 quadrants)
             drawQuadrantMenuWithSelection(quadrantSelection);
         }
         else if (currentState == MENU_LED) {
@@ -176,7 +176,7 @@ void handleInput() {
         {
             if (editMode == EDIT_MODE_NONE)
             {
-                // Nella modalità normale, UP/DOWN cambiano il campo da modificare
+                // In normal mode, UP/DOWN change the field to modify
                 if (editMode > EDIT_MODE_HOUR)
                     editMode--;
                 else
@@ -185,7 +185,7 @@ void handleInput() {
             }
             else
             {
-                // Nella modalità modifica, UP/DOWN cambiano il valore
+                // In modify mode, UP/DOWN change the value
                 switch (editMode)
                 {
                 case EDIT_MODE_HOUR:
@@ -195,7 +195,7 @@ void handleInput() {
                     currentTime.minutes = (currentTime.minutes + 1) % 60;
                     break;
                 case EDIT_MODE_DAY:
-                    currentTime.day = (currentTime.day % 31) + 1; // Semplificato, senza controlli sul mese
+                    currentTime.day = (currentTime.day % 31) + 1; // simplified without checks on the month
                     break;
                 case EDIT_MODE_MONTH:
                     currentTime.month = (currentTime.month % 12) + 1;
@@ -211,7 +211,7 @@ void handleInput() {
         }
     }
 
-    // Pulsante DOWN
+    // DOWN button
     if (currentDownState == 0 && lastDownState == 1) {
         __delay_cycles(10000); // Debounce
 
@@ -233,7 +233,7 @@ void handleInput() {
         {
             if (editMode == EDIT_MODE_NONE)
             {
-                // Nella modalità normale, UP/DOWN cambiano il campo da modificare
+                // In normal mode, UP/DOWN change the field to modify
                 if (editMode < EDIT_MODE_YEAR)
                     editMode++;
                 else
@@ -242,7 +242,7 @@ void handleInput() {
             }
             else
             {
-                // Nella modalità modifica, UP/DOWN cambiano il valore
+                //  In modify mode, UP/DOWN change the value
                 switch (editMode)
                 {
                 case EDIT_MODE_HOUR:
@@ -268,13 +268,13 @@ void handleInput() {
         }
     }
 
-    // Pulsante SELECT
+    // SELECT button
     if (currentSelectState == 0 && lastSelectState == 1) {
         __delay_cycles(10000); // Debounce
 
         if (currentState == MENU_QUADRANT)
         {
-            // Vai al menu corrispondente in base alla selezione
+            // Go to the right menu based on selection
             switch (quadrantSelection)
             {
             case 0:
@@ -295,7 +295,7 @@ void handleInput() {
                 break;
             case 3:
                 currentState = MENU_CLOCK;
-                editMode = EDIT_MODE_HOUR; // Inizia con la modifica dell'ora
+                editMode = EDIT_MODE_HOUR; // Starts with the time modifying mode
                 drawClockScreen(0, editMode);
                 updateWarmWhite();
                 break;
@@ -321,14 +321,14 @@ void handleInput() {
         }
         else if (currentState == MENU_CLOCK) {
             if (editMode == EDIT_MODE_NONE) {
-                // Torna al menu principale
+                // Back to main menu
                 currentState = MENU_QUADRANT;
                 Graphics_clearDisplay(&g_sContext);
                 drawQuadrantMenuWithSelection(quadrantSelection);
             } else {
-                // Passa al prossimo campo o conferma
+                // Goes to next field or confirm
                 if (editMode == EDIT_MODE_YEAR) {
-                    // Ultimo campo, conferma e torna alla visualizzazione
+                    // Last field, confirm and go back to visualization
                     setTime(currentTime.hours, currentTime.minutes, currentTime.seconds,
                            currentTime.day, currentTime.month, currentTime.year);
                     editMode = EDIT_MODE_NONE;
@@ -352,41 +352,40 @@ void handleInput() {
 
 void toggleEarthquakeLed(bool stato){
     if (stato) {
-        GPIO_setOutputHighOnPin(LED_TERREMOTO);  // Accende il LED
+        GPIO_setOutputHighOnPin(LED_TERREMOTO);  // Turns on the LED
         GPIO_setOutputHighOnPin(LED_TEMP_ALTA);
     } else {
-        GPIO_setOutputLowOnPin(LED_TERREMOTO);    // Spegne il LED
+        GPIO_setOutputLowOnPin(LED_TERREMOTO);    // Shuts down the LED
         GPIO_setOutputLowOnPin(LED_TEMP_ALTA);
     }
 }
 void toggleHighTempLed(bool stato){
     if (stato) {
-        GPIO_setOutputHighOnPin(LED_TERREMOTO);  // Accende il LED
+        GPIO_setOutputHighOnPin(LED_TERREMOTO);  // Turns on the LED
     } else {
-        GPIO_setOutputLowOnPin(LED_TERREMOTO);    // Spegne il LED
+        GPIO_setOutputLowOnPin(LED_TERREMOTO);    //  Shuts down the LED
     }
 }
 void toggleLowTempLed(bool stato){
     if (stato) {
-        GPIO_setOutputHighOnPin(LED_TEMP_BASSA);  // Accende il LED
+        GPIO_setOutputHighOnPin(LED_TEMP_BASSA);  // Turns on the LED
     } else {
-        GPIO_setOutputLowOnPin(LED_TEMP_BASSA);    // Spegne il LED
+        GPIO_setOutputLowOnPin(LED_TEMP_BASSA);    //  Shuts down the LED
     }
 }
 
 
 int main(void) {
-    MAP_WDT_A_holdTimer(); // Disabilita il Watchdog
+    MAP_WDT_A_holdTimer(); // Disables the  Watchdog
 
     _hwInit();
     currentState = MENU_SPLASH;
-    showSplashScreen();  // Mostra immagine iniziale per 5s
+    showSplashScreen();  // Show startup image for 5s
     Graphics_clearDisplay(&g_sContext);
     currentState = MENU_QUADRANT;
     updateTimeFromRTC();
-    drawQuadrantMenuWithSelection(0);  // Poi mostra il menu a 4 quadranti
+    drawQuadrantMenuWithSelection(0);  // the show the 4 quadrants menu
 
-    // Modifica nel main loop
     while (1) {
         lastState = currentState;
         PIR_detect();
@@ -397,31 +396,31 @@ int main(void) {
             toggleEarthquakeLed(0);
         }
 
-        // Gestione allarme temperatura
+        // temperature alarm management
         float currentTemp = getTemperature();
 
         if (currentTemp > 40) {
-            toggleHighTempLed(true);  // Accendi il LED se temp > 40
+            toggleHighTempLed(true);  // Turns on LED if temp > 40
             if (!showedAlarm) {
                 currentState = TEMP_ALERT;
                 //_buzzerInit();
                 showedAlarm = true;
-                sameDataDisplay = false; // Forza l'aggiornamento della schermata
+                sameDataDisplay = false; // Forces screen update
             }
         }else if (currentTemp < 15) {
-            toggleLowTempLed(true);  // Accendi il LED se temp > 25
+            toggleLowTempLed(true);  // Turns on LED if temp < 25
             if (!showedAlarm) {
                 currentState = TEMP_ALERT;
                 //_buzzerInit();
                 showedAlarm = true;
-                sameDataDisplay = false; // Forza l'aggiornamento della schermata
+                sameDataDisplay = false; // Forces screen update
             }
         }
         else {
-            toggleHighTempLed(false);  // Spegni il LED
+            toggleHighTempLed(false);  // Shuts down the LED
             toggleLowTempLed(false);
             if (showedAlarm) {
-                // Se stiamo uscendo dallo stato di allarme
+                // If we are exiting from alarm state
                 if (currentState == TEMP_ALERT) {
                     //stopBuzzer();
                     currentState = MENU_QUADRANT;
@@ -434,31 +433,30 @@ int main(void) {
 
         handleInput();
 
-        // Aggiorna il flag sameDataDisplay
+        // Updates the flag sameDataDisplay
         sameDataDisplay = (lastState == currentState);
 
         updateWarmWhite();
-        // Aggiorna l'RTC SOLO se non siamo in modalità modifica
+        // Updates the RTC ONLY if we're not in modifying mode
         if (currentState != MENU_CLOCK || editMode == EDIT_MODE_NONE)
         {
             updateTimeFromRTC();
         }
 
-        // Aggiorna gli schermi
+        // Updates the screens
         if(currentState == TEMP_ALERT){
             drawTemperatureScreen_Alert(sameDataDisplay);
         }
         if (currentState != MENU_QUADRANT) {
             switch(currentState) {
                 case MENU_TEMPERATURE:
-                    //drawTemperatureScreen(sameDataDisplay);
                     drawEnhancedTemperatureScreen(sameDataDisplay, getTemperature());
                     break;
                 case MENU_LIGHT:
                     drawLightScreen(sameDataDisplay);
                     break;
                 case MENU_LED:
-                    // Nessun disegno specifico qui
+                    // No drawing specified here
                     break;
                 case MENU_CLOCK:
                     drawClockScreen(sameDataDisplay, editMode);

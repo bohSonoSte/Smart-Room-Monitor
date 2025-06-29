@@ -62,7 +62,7 @@ void setColor(LEDColor color) {
 
     switch(color) {
         case LED_DIM:
-            // Usa il valore lux già letto (da aggiornare separatamente)
+            // Use the already read lux value (to update separately)
                         if (lux >= 1000.0) {
                             red = green = blue = PWM_PERIOD;
                         } else if (lux <= 10.0) {
@@ -108,41 +108,42 @@ void setColor(LEDColor color) {
 }
 
 // Modify updateLED function
-void updateLED(uint8_t option) {
-    switch(option) {
-        case 0: // Toggle LED
-            ledActive = !ledActive;
-            if (ledActive) {
-                setColor(currentColor);
-            } else {
-                setColor(LED_OFF);
-            }
-            break;
-        case 1: // Led Dim
-        case 2: // Cool White
-        case 3: // Red
-        case 4: // Green
-        case 5: // Blue
-            {
-                LEDColor newColor = option; // Options match enum values
-                //if (newColor != currentColor) {
-                    currentColor = newColor;
-                    //if (ledActive) {
-                        setColor(currentColor);
-                        ledActive = 1;
-                    //}
-                //}
-            }
-            break;
+void updateLED(uint8_t option)
+{
+    switch (option)
+    {
+    case 0: // Toggle LED
+        ledActive = !ledActive;
+        if (ledActive)
+        {
+            setColor(currentColor);
+        }
+        else
+        {
+            setColor(LED_OFF);
+        }
+        break;
+    case 1: // Led Dim
+    case 2: // Cool White
+    case 3: // Red
+    case 4: // Green
+    case 5: // Blue
+    {
+        LEDColor newColor = option; // Options match enum values
+        currentColor = newColor;
+        setColor(currentColor);
+        ledActive = 1;
+    }
+        break;
 
-        default:
-            break;
+    default:
+        break;
     }
 }
 
 void updateWarmWhite() {
     if(currentColor == LED_DIM && ledActive) {
-        lux = getLux(); // Leggi il valore attuale della luce
-        setColor(LED_DIM); // Ricalcola il colore
+        lux = getLux(); // Read the actual value of the light
+        setColor(LED_DIM); // Recalculate the color
     }
 }

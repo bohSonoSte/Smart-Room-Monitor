@@ -10,7 +10,7 @@
 
 void _graphicsInit(void);
 
-//Metodi per disegnare menù
+//Methods to draw menus
 void drawMainMenu(uint8_t currentSelection);
 void drawTemperatureScreen(bool sameDataDisplay);
 void drawLightScreen(bool sameDataDisplay);

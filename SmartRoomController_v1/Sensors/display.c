@@ -28,7 +28,7 @@
 #define PIR_PIN         GPIO_PORT_P5, GPIO_PIN5
 
 
-// Variabili globali
+// Global Variables
 Graphics_Context g_sContext;
 float luxValue, temp;
 bool motionDetected;
@@ -62,7 +62,7 @@ void drawMainMenu(uint8_t currentSelection) {
             Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
         }
         if(mainMenu[i].name == "Temperature" && getTemperature() > 40){
-            sprintf(string, "Temperature ALTA" );
+            sprintf(string, "HIGH temperature" );
             Graphics_drawStringCentered(&g_sContext, (int8_t *)string,
                                       AUTO_STRING_LENGTH, 64, 30 + i * 20, OPAQUE_TEXT);
         }
@@ -73,6 +73,7 @@ void drawMainMenu(uint8_t currentSelection) {
     }
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
 }
+
 
 void drawTemperatureScreen(bool sameDataDisplay) {
     char string[20];
@@ -91,7 +92,7 @@ void drawTemperatureScreen(bool sameDataDisplay) {
 }
 
 void drawLightScreen(bool sameDataDisplay) {
-    // Pulisci lo schermo solo se necessario
+    // Clean the screen if necessary
     if(!sameDataDisplay) {
         Graphics_clearDisplay(&g_sContext);
     }else{
@@ -101,20 +102,20 @@ void drawLightScreen(bool sameDataDisplay) {
     }
 
 
-    // Formatta e centra il valore lux
+    // Format and center lux value
     luxValue = getLux();
     sprintf(luxString, "%.1f lux", luxValue);
 
-    // Usa lo stesso font della temperatura
+    // Use the same font as temperature
     Graphics_setFont(&g_sContext, &g_sFontCmss16);
 
-    // Calcola la larghezza del testo per centrarlo
+    // Calculate the width of the text to center it
     int16_t stringWidth = Graphics_getStringWidth(&g_sContext, (int8_t *)luxString, -1);
     int16_t xPos = (128 - stringWidth) / 2;
 
     Graphics_drawString(&g_sContext, (int8_t *)luxString, -1, xPos, 12, OPAQUE_TEXT);
 
-    // Barra di intensità luminosa centrata
+    // Light intensity bar centered
     int16_t lightLevel = (int16_t)((luxValue / 1000.0) * 80); // Scala fino a 1000 lux
     if(lightLevel > 80) lightLevel = 80;
     if(lightLevel < 0) lightLevel = 0;
@@ -122,19 +123,19 @@ void drawLightScreen(bool sameDataDisplay) {
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_YELLOW);
     Graphics_fillRect(&g_sContext, (128 - 80)/2, 40, lightLevel, 12);
 
-    // Scala semplificata
+    // Draw light intensity bar
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
     uint8_t i = 0;
     for(i = 0; i <= 4; i++) {
         Graphics_drawLine(&g_sContext, 24 + (i*20), 55, 24 + (i*20), 58);
     }
 
-    // Istruzioni di ritorno (stesso stile temperatura)
+    // Draw instructions to go back
     Graphics_setFont(&g_sContext, &g_sFontFixed6x8);
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
-    Graphics_drawStringCentered(&g_sContext, (int8_t *)"Premi SELECT",
+    Graphics_drawStringCentered(&g_sContext, (int8_t *)"Press SELECT",
                               AUTO_STRING_LENGTH, 64, 90, OPAQUE_TEXT);
-    Graphics_drawStringCentered(&g_sContext, (int8_t *)"per tornare indietro",
+    Graphics_drawStringCentered(&g_sContext, (int8_t *)"to go back",
                               AUTO_STRING_LENGTH, 64, 100, OPAQUE_TEXT);
 }
 
@@ -179,21 +180,20 @@ void drawTemperatureScreen_Alert(bool sameDataDisplay) {
     temp = getTemperature();
     if(!sameDataDisplay && temp >40) {
         Graphics_clearDisplay(&g_sContext);
-        // Sfondo rosso per l'allarme
+        // Red background for the alarm
         Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
         Graphics_fillRect(&g_sContext, 0, 0, 128, 128);
     }else if(!sameDataDisplay && temp < 15){
         Graphics_clearDisplay(&g_sContext);
-        // Sfondo blu per l'allarme
+        // Blue background for the alarm
         Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLUE);
         Graphics_fillRect(&g_sContext, 0, 0, 128, 128);
     }
 
 
-    // Testo bianco per contrasto
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
 
-    // 1. Scritta "HIGH TEMPERATURE" in alto
+    // 1. String "HIGH TEMPERATURE" at the top
     Graphics_setFont(&g_sContext, &g_sFontCmss12);
     if(temp > 40)
         sprintf(string, "HIGH TEMPERATURE !");
@@ -202,15 +202,15 @@ void drawTemperatureScreen_Alert(bool sameDataDisplay) {
     Graphics_drawStringCentered(&g_sContext, (int8_t *)string,
                                   AUTO_STRING_LENGTH, 64, 20, OPAQUE_TEXT);
 
-    // 2. Valore temperatura grande al centro
+    // 2. Temperature value in the middle
     char tempString[20];
     sprintf(tempString, "%.1f °C", temp);
-    Graphics_setFont(&g_sContext, &g_sFontCmss24b); // Font più grande
+    Graphics_setFont(&g_sContext, &g_sFontCmss24b);
     Graphics_drawStringCentered(&g_sContext, (int8_t*) tempString,
     AUTO_STRING_LENGTH,
                                 64, 54, OPAQUE_TEXT);
 
-    // 3. Messaggio per uscire in basso (stile coerente)
+    // 3. Message to go back at the bottom
     Graphics_setFont(&g_sContext, &g_sFontFixed6x8);
     Graphics_drawStringCentered(&g_sContext, (int8_t*) "Press SELECT to return",
     AUTO_STRING_LENGTH,
@@ -218,9 +218,9 @@ void drawTemperatureScreen_Alert(bool sameDataDisplay) {
 
 }
 
-
+//Draw the temperature page
 void drawEnhancedTemperatureScreen(bool sameDataDisplay, float temperature) {
-    // Icona termometro semplificata (8x8)
+    // thermometer icon (8x8)
     static const uint8_t thermometerIcon[] = {
         0x18, 0x24, 0x24, 0x24, 0x24, 0x24, 0x24, 0x3C,
         0x3C, 0x7E, 0x7E, 0x7E, 0x7E, 0x3C, 0x24, 0x18
@@ -229,54 +229,52 @@ void drawEnhancedTemperatureScreen(bool sameDataDisplay, float temperature) {
     if(!sameDataDisplay) {
         Graphics_clearDisplay(&g_sContext);
 
-        // Cornice sottile
+        // Light frame
         Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLUE);
         Graphics_drawRect(&g_sContext, 2, 2, 124, 124);
     }
 
-    // Disegna icona termometro piccola (8x8)
-    //Graphics_drawImage(&g_sContext, thermometerIcon, 8, 8);
 
-    // Formatta e centra la temperatura
+    // Format and center the temperature
     char tempString[10];
     sprintf(tempString, "%.1f°C", temperature);
 
-    // Usa un font medio (anziché grande)
+    // Use a medium font (instead of big)
     Graphics_setFont(&g_sContext, &g_sFontCmss16);
 
-    // Calcola la larghezza del testo per centrarlo perfettamente
+    // Calculate the width of the text to center it
     int16_t stringWidth = Graphics_getStringWidth(&g_sContext, (int8_t *)tempString, -1);
     int16_t xPos = (128 - stringWidth) / 2;
 
     Graphics_drawString(&g_sContext, (int8_t *)tempString, -1, xPos, 12, OPAQUE_TEXT);
 
-    // Barra di temperatura centrata
-    int16_t tempLevel = (int16_t)((temperature / 50.0) * 80); // Scala ridotta a 80px
+    // Temperature bar centered
+    int16_t tempLevel = (int16_t)((temperature / 50.0) * 80); // Scale reduced to 80px
     if(tempLevel > 80) tempLevel = 80;
     if(tempLevel < 0) tempLevel = 0;
 
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
     Graphics_fillRect(&g_sContext, (128 - 80)/2, 40, tempLevel, 12);
 
-    // Scala semplificata
+    // Drawing thermometer
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
     uint8_t i = 0;
     for(i = 0; i <= 4; i++) {
         Graphics_drawLine(&g_sContext, 24 + (i*20), 55, 24 + (i*20), 58);
     }
 
-    // Istruzioni di ritorno su due righe centrate
+    // drawing instructions of return to main menu
     Graphics_setFont(&g_sContext, &g_sFontFixed6x8);
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
-    Graphics_drawStringCentered(&g_sContext, (int8_t *)"Premi SELECT",
+    Graphics_drawStringCentered(&g_sContext, (int8_t *)"Press SELECT",
                               AUTO_STRING_LENGTH, 64, 90, OPAQUE_TEXT);
-    Graphics_drawStringCentered(&g_sContext, (int8_t *)"per tornare indietro",
+    Graphics_drawStringCentered(&g_sContext, (int8_t *)"to go back",
                               AUTO_STRING_LENGTH, 64, 100, OPAQUE_TEXT);
 }
 
 
 
-//Metodi per disegnare
+//Drawing methods
 void Graphics_drawRect(Graphics_Context *context, int16_t x, int16_t y,
                       int16_t width, int16_t height) {
     Graphics_drawLine(context, x, y, x + width, y); // Top
@@ -296,31 +294,30 @@ void Graphics_fillRect(Graphics_Context *context, int16_t x, int16_t y,
 void drawClockScreen(bool sameDataDisplay, uint8_t editMode) {
     char timeString[20];
     char dateString[20];
-    //char editString[30];
 
     if(!sameDataDisplay) {
         Graphics_clearDisplay(&g_sContext);
     }
 
-    // Formatta l'orario
+    // Format the time
     sprintf(timeString, "%02d:%02d:%02d",
            currentTime.hours,
            currentTime.minutes,
            currentTime.seconds);
 
-    // Formatta la data
+    // Format the date
     sprintf(dateString, "%02d/%02d/%04d",
            currentTime.day,
            currentTime.month,
            currentTime.year);
 
-    // Titolo
+    // Title
     Graphics_setFont(&g_sContext, &g_sFontFixed6x8);
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
     Graphics_drawStringCentered(&g_sContext, (int8_t *)"Clock Settings",
                               AUTO_STRING_LENGTH, 64, 10, OPAQUE_TEXT);
 
-    // Disegna l'orario con evidenziazione se in modalità modifica
+    // Draw the time highlighted if in modifying mode
     Graphics_setFont(&g_sContext, &g_sFontCmss20b);
 
     if(editMode == EDIT_MODE_HOUR) {
@@ -338,7 +335,7 @@ void drawClockScreen(bool sameDataDisplay, uint8_t editMode) {
     Graphics_drawStringCentered(&g_sContext, (int8_t *)timeString,
                               AUTO_STRING_LENGTH, 64, 50, OPAQUE_TEXT);
 
-    // Disegna la data con evidenziazione se in modalità modifica
+    // Draw the date highlighted if in modifying mode
     Graphics_setFont(&g_sContext, &g_sFontFixed6x8);
 
     if(editMode == EDIT_MODE_DAY) {
@@ -360,7 +357,7 @@ void drawClockScreen(bool sameDataDisplay, uint8_t editMode) {
     Graphics_drawStringCentered(&g_sContext, (int8_t *)dateString,
                               AUTO_STRING_LENGTH, 64, 90, OPAQUE_TEXT);
 
-    // Istruzioni
+    // Instructions
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
     if(editMode == EDIT_MODE_NONE) {
         Graphics_drawStringCentered(&g_sContext, (int8_t *)"UP/DOWN: Select field",
@@ -375,7 +372,6 @@ void drawClockScreen(bool sameDataDisplay, uint8_t editMode) {
     }
 }
 
-//nuova grafica
 void showSplashScreen(void) {
     GrImageDraw(&g_sContext, &dropLogoPalette, 0, 0);
     GrFlush(&g_sContext);
@@ -386,39 +382,39 @@ void drawQuadrantMenuWithSelection(uint8_t selected) {
     uint8_t quadWidth = 64;
     uint8_t quadHeight = 64;
 
-    // Quadrante 0: in alto a sinistra (Termometro)
+    // Quadrant 0: Top Left (Thermometer)
     Graphics_drawImage(&g_sContext, &termometroImage, 0, 0);
     if (selected == 0) {
         Graphics_setForegroundColor(&g_sContext, ClrRed);
         Graphics_drawRectangle(&g_sContext, &(Graphics_Rectangle){0, 0, quadWidth-1, quadHeight-1});
     }
 
-    // Quadrante 1: in alto a destra (Lampadina)
+    // Quadrant 1: Top Right (Light bulb)
     Graphics_drawImage(&g_sContext, &dropLampPalette, quadWidth, 0);
     if (selected == 1) {
         Graphics_setForegroundColor(&g_sContext, ClrRed);
         Graphics_drawRectangle(&g_sContext, &(Graphics_Rectangle){quadWidth, 0, 2*quadWidth-1, quadHeight-1});
     }
 
-    // Quadrante 2: in basso a sinistra (RGB)
+    // Quadrant 2: Bottom Left (RGB)
     Graphics_drawImage(&g_sContext, &dropRGBPalette, 0, quadHeight);
     if (selected == 2) {
         Graphics_setForegroundColor(&g_sContext, ClrRed);
         Graphics_drawRectangle(&g_sContext, &(Graphics_Rectangle){0, quadHeight, quadWidth-1, 2*quadHeight-1});
     }
 
-    // Quadrante 3: in basso a destra (Orologio)
+    // Quadrant 3: Bottom Right (Clock)
     char timeString[20];
     char dateString[20];
 
-    // Formatta l'orario
+    // Format the time
     sprintf(timeString, "%02d:%02d", currentTime.hours, currentTime.minutes);
 
-    // Formatta la data
+    // Format the date
     sprintf(dateString, "%02d/%02d/%04d", currentTime.day, currentTime.month, currentTime.year);
 
-    // Disegna l'orario (grande)
-    Graphics_setFont(&g_sContext, &g_sFontCmss20b); // Font grande
+    // draw the time (big)
+    Graphics_setFont(&g_sContext, &g_sFontCmss20b);
     Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
     Graphics_drawStringCentered(&g_sContext, (int8_t *)timeString,
                               AUTO_STRING_LENGTH,
@@ -426,7 +422,7 @@ void drawQuadrantMenuWithSelection(uint8_t selected) {
                               quadHeight + 15,
                               OPAQUE_TEXT);
 
-    // Disegna la data (piccola)
+    // Draw the date (small)
     Graphics_setFont(&g_sContext, &g_sFontFixed6x8); // Font piccolo
     Graphics_drawStringCentered(&g_sContext, (int8_t *)dateString,
                               AUTO_STRING_LENGTH,
@@ -442,7 +438,7 @@ void drawQuadrantMenuWithSelection(uint8_t selected) {
         Graphics_drawRectangle(&g_sContext, &(Graphics_Rectangle){quadWidth, quadHeight, 2*quadWidth-1, 2*quadHeight-1});
     }
 
-    // Ripristina colore di default
+    // Reset color to default
     Graphics_setForegroundColor(&g_sContext, ClrWhite);
 
     Graphics_flushBuffer(&g_sContext);

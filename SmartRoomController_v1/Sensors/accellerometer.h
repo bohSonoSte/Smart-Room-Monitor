@@ -3,10 +3,10 @@
 
 #include <stdbool.h>
 
-// Inizializza l'accelerometro
+// Starts the accelerometer
 void Accelerometer_init(void);
 
-// Rileva movimento (TRUE = movimento rilevato)
+// Detect movement (TRUE = movement detected)
 bool isMovementDetected(void);
 
 void updateCalibration(void);

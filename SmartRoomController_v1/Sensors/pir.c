@@ -7,10 +7,10 @@
 #define PIR_LED         GPIO_PORT_P1, GPIO_PIN0
 
 void initPir(){
-    // Configura il pin P6.4 come input (sensore PIR)
+    // Configures the pin P6.4 as input (PIR sensor)
         GPIO_setAsInputPin(PIR_PIN);
 
-        // Configura il pin P1.0 come output (LED)
+        // Configures the pin P1.0 as output (LED)
         GPIO_setAsOutputPin(PIR_LED);
         GPIO_setOutputLowOnPin(PIR_LED);
 
@@ -19,13 +19,13 @@ void initPir(){
 bool PIR_detect(){
     if(GPIO_getInputPinValue(PIR_PIN) == GPIO_INPUT_PIN_HIGH)
             {
-                // Accendi il LED
+                // Turn on the LED
                 GPIO_setOutputHighOnPin(PIR_LED);
                 return true;
             }
             else
             {
-                // Spegni il LED
+                // Shut off the LED
                 GPIO_setOutputLowOnPin(PIR_LED);
                 return false;
             }

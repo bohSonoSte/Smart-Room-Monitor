@@ -6,10 +6,10 @@
 
 #include "rtc.h"
 
-DateTime currentTime = {0, 0, 0, 1, 1, 2023}; // Definizione della variabile globale
+DateTime currentTime = {0, 0, 0, 1, 1, 2023}; // Definition of the global variable
 
 void initRTC(void) {
-    // Configura il RTC con l'oscillatore a 32.768 kHz
+    // Configures the RTC with the oscillator at 32.768 kHz
     RTC_C_initCalendar(&(RTC_C_Calendar){
         .seconds = 0,
         .minutes = 25,
@@ -20,10 +20,10 @@ void initRTC(void) {
         .year = 2025
     }, RTC_C_FORMAT_BINARY);
 
-    // Abilita l'oscillatore di bassa frequenza
+    //Enables the LFO(low frequency oscillator)
     CS_startLFXT(CS_LFXT_DRIVE3);
 
-    // Avvia il RTC
+    //Starts the RTC(real time clock)
     RTC_C_startClock();
 }
 
@@ -47,7 +47,7 @@ void setTime(uint8_t h, uint8_t m, uint8_t s, uint8_t day, uint8_t month, uint16
         .month = month,
         .year = year
     }, RTC_C_FORMAT_BINARY);
-    // Avvia il RTC
+    //Starts the RTC(real time clock)
     RTC_C_startClock();
 }
 

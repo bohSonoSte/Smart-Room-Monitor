@@ -16,7 +16,7 @@ typedef struct {
     uint16_t year;
 } DateTime;
 
-extern DateTime currentTime;  // Dichiarazione come variabile esterna
+extern DateTime currentTime;  // declaration as extern variable
 
 void initRTC(void);
 void updateTimeFromRTC(void);
